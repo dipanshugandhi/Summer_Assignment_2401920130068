@@ -1,1 +1,71 @@
+ // 2 sum ( Problem 1 )
 
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int i = 0; i < nums.length; i++) {
+            int num = target - nums[i];
+
+            if(map.containsKey(num)) {
+                return new int[]{map.get(num), i};
+            }
+
+            map.put(nums[i], i);
+        }    
+
+        return new int[]{-1, -1};
+        }
+
+}
+
+
+
+
+
+
+
+
+// Remove Duplicates from Sorted Array ( Problem 2 )
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        if(nums.length == 0) {
+            return 0;
+        }
+        for(int j = 0; j < nums.length; j++) {
+            if(nums[j] != nums[i]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+}
+}
+
+
+
+
+
+
+
+// Best Time to Buy and Sell Stock ( Problem 3 )
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buy = 0;
+        int maxProfit = 0;
+
+        for(int i = 0; i < prices.length; i++) {
+            if(prices[i] < prices[buy]) {
+                buy = i;
+            }
+            else {
+                maxProfit = Math.max(maxProfit, prices[i] - prices[buy]);
+            }
+        }
+       
+        return maxProfit;
+    }
+}
