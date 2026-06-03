@@ -1,0 +1,99 @@
+// Move Zeroes ( Problem 1 )
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int k = 0;
+
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] != 0) {
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+
+        while(k < nums.length) {
+            nums[k] = 0;
+            k++;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Squares Of A Sorted Array ( Problem 2 ) 
+
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+
+        int left = 0;
+        int right = n - 1;
+        int k = n - 1;
+
+        while(left <= right) {
+
+            int leftSquare = nums[left] * nums[left];
+            int rightSquare = nums[right] * nums[right];
+
+            if(leftSquare > rightSquare) {
+                ans[k] = leftSquare;
+                k--;
+                left++;
+            }
+            else {
+                ans[k] = rightSquare;
+                k--;
+                right--;
+            }
+        }
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Container With Most Water ( Problem 3 )
+
+class Solution {
+    public int maxArea(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int maxArea = 0;
+
+        while(left < right) {
+            int area = (right - left) * Math.min(height[left], height[right]);
+            maxArea = Math.max(area, maxArea);
+
+            if(height[left] > height[right]) {
+                right--;
+            }
+            else {
+                left++;
+            }
+        }
+        return maxArea;
+    }
+}
