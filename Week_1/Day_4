@@ -1,0 +1,109 @@
+// Matrix Diagonal Sum ( Problem 1 )
+
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        int sum = 0;
+        int n = mat.length;
+
+        for(int i = 0; i < n; i++) {
+            sum += mat[i][i];
+            sum += mat[i][n - 1 - i];
+        }
+
+        if(n % 2 == 0) {
+            return sum;
+        }
+        return sum - mat[n/2][n/2];
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Reshape The Matrix ( Problem 2 )
+
+class Solution {
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+        int[][] ans = new int[r][c];
+
+        if((mat.length * mat[0].length) != (r * c)) {
+            return mat;
+        }
+        int row = 0;
+        int col = 0;
+
+        for(int i = 0; i < mat.length; i++) {
+            for(int j = 0; j < mat[0].length; j++) {
+                ans[row][col] = mat[i][j];
+                col++;
+
+                if(col == c) {
+                    col = 0;
+                    row++;
+                }
+            }
+        }
+
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Spiral Matrix ( Problem 3 )
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> ans = new ArrayList<>();
+        int left = 0;
+        int top = 0;
+        int right = matrix[0].length - 1;
+        int bottom = matrix.length - 1;
+
+        while(left <= right && top <= bottom) {
+        for(int i = left; i <= right; i++) {
+            ans.add(matrix[top][i]);
+        }
+        top++;
+
+        for(int i = top; i <= bottom; i++) {
+            ans.add(matrix[i][right]);
+        }
+        right--;
+
+        if(top <= bottom) {
+        for(int i = right; i >= left; i--) {
+            ans.add(matrix[bottom][i]);
+        }
+        bottom--;
+        }
+
+        if(left <= right) {
+        for(int i = bottom; i >= top; i--) {
+            ans.add(matrix[i][left]);
+        }
+        left++;
+        }
+        }
+        return ans;
+    }
+}
