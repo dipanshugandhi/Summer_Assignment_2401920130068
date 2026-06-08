@@ -1,1 +1,80 @@
+// Valid Anagram ( Problem 1 )
 
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()) {
+            return false;
+        }
+        int[] freq = new int[26];
+
+        for(int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+            freq[t.charAt(i) - 'a']--;
+        }
+
+        for(int count : freq) {
+            if(count != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// First Unique Character in a String ( Problem 2 )
+
+class Solution {
+    public int firstUniqChar(String s) {
+        int[] freq = new int[26];
+
+        for(int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+        }
+        for(int i = 0; i < s.length(); i++) {
+            if(freq[s.charAt(i) - 'a'] == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+
+
+
+
+
+
+
+
+// Ransom Note ( Problem 3 ) 
+
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int[] freq = new int[26];
+
+        for(int i = 0; i < magazine.length(); i++) {
+            freq[magazine.charAt(i) - 'a']++;
+        }
+
+        for(int i = 0; i < ransomNote.length(); i++) {
+            freq[ransomNote.charAt(i) - 'a']--;
+        
+        if(freq[ransomNote.charAt(i) - 'a'] < 0) {
+            return false;
+        }
+        }
+
+        return true;
+
+    }
+}
