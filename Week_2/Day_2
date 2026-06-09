@@ -1,0 +1,117 @@
+// Longest Substring Without Repeating Characters ( Problem 1 )
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[] hash = new int[256];
+        Arrays.fill(hash,-1);
+        int l = 0;
+        int r = 0;
+        int maxLength = 0;
+        int n = s.length();
+        while(r < n) {
+            if(hash[s.charAt(r)] != -1) {
+                if(hash[s.charAt(r)] >= l) {
+                    l = hash[s.charAt(r)] + 1;
+                }
+            }
+            int len = r - l + 1;
+            maxLength = Math.max(maxLength, len);
+            hash[s.charAt(r)] = r;
+            r++;
+        }
+        return maxLength;
+    }
+}
+
+
+
+
+
+
+
+
+
+// Permutation In String ( Problem 2 )
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int n = s1.length();
+        int m = s2.length();
+
+        if(n > m) {
+            return false;
+        }
+
+        int[] freq1 = new int[26];
+        int[] freq2 = new int[26];
+
+        for(int i = 0; i < n; i++) {
+            freq1[s1.charAt(i) - 'a']++;
+        }
+
+        int left = 0;
+        int right = 0;
+
+        while(right < m) {
+            freq2[s2.charAt(right) - 'a']++;
+
+            if(right - left + 1 > n) {
+                freq2[s2.charAt(left) - 'a']--;
+                left++;
+            }
+
+            if(Arrays.equals(freq1, freq2)) {
+                return true;
+            }
+            right++;
+        }
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
+
+// Find All Anagrams in String ( Problem 3 )
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list = new ArrayList<>();
+        int n = p.length();
+        int m = s.length();
+
+        if(n > m) {
+            return list;
+        }
+
+        int[] freq1 = new int[26];
+        int[] freq2 = new int[26];
+
+        for(int i = 0; i < n; i++) {
+            freq1[p.charAt(i) - 'a']++;
+        }
+
+        int left = 0;
+        int right = 0;
+
+        while(right < m) {
+            freq2[s.charAt(right) - 'a']++;
+
+            if(right - left + 1 > n) {
+                freq2[s.charAt(left) - 'a']--;
+                left++;
+            }
+
+            if(Arrays.equals(freq1, freq2)) {
+                list.add(left);
+            }
+            right++;
+        }
+        return list;
+    }
+}
