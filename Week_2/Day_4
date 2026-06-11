@@ -1,0 +1,115 @@
+// Reverse Words in a String III ( Problem 1 )
+
+class Solution {
+    public String reverseWords(String s) {
+        String[] words = s.split(" ");
+        StringBuilder ans = new StringBuilder();
+
+        for(int i = 0; i < words.length; i++) {
+            StringBuilder temp = new StringBuilder(words[i]);
+            temp.reverse();
+            ans.append(temp);
+
+            if(i != words.length - 1) {
+                ans.append(" ");
+            }
+        }
+        return ans.toString();
+    }
+}
+
+
+
+
+
+
+
+
+
+// Decode String ( Problem 2 )
+
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> numStack = new Stack<>();
+        Stack<String> mainStack = new Stack<>();
+
+        for(int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            
+            if(Character.isDigit(ch)) {
+                int num = 0;
+
+                while(i < s.length() && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + (s.charAt(i) - '0');
+                    i++;
+                }
+                i--;
+                numStack.push(num);
+            }
+            
+            else if(ch != ']') {
+                mainStack.push(ch + "");
+            }
+            
+            else {
+                String str = "";
+
+                while(!mainStack.peek().equals("[")) {
+                    str = mainStack.pop() + str;
+                }
+
+                mainStack.pop(); 
+
+                int repeat = numStack.pop();
+                StringBuilder st = new StringBuilder();
+
+                while(repeat-- > 0) {
+                    st.append(str);
+                }
+
+                mainStack.push(st.toString());
+            }
+        }
+
+        StringBuilder ans = new StringBuilder();
+        while(!mainStack.isEmpty()) {
+            ans.insert(0, mainStack.pop());
+        }
+
+        return ans.toString();
+    }
+}
+
+
+
+
+
+
+
+
+
+// Generate Parenthesis ( Problem 3 )
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        solve("", 0, 0, n, ans);
+        return ans;
+    }
+
+    public void solve(String curr, int open, int closed, int total, List<String> ans) {
+        if(curr.length() == 2 * total) {
+            ans.add(curr);
+            return;
+        }
+
+        if(open < total) {
+            solve(curr + "(", open + 1, closed, total, ans);
+        }
+
+        if(closed < open) {
+            solve(curr + ")", open, closed + 1, total, ans);
+        }
+    }
+}
