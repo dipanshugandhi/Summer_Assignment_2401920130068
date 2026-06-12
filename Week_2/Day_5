@@ -1,0 +1,121 @@
+// Group Anagrams ( Problem 1 )
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for(int i = 0; i < strs.length; i++) {
+            char[] freq = new char[26];
+
+            for(int j = 0; j < strs[i].length(); j++) {
+                char ch = strs[i].charAt(j);
+                freq[ch - 'a']++;
+            }
+
+            String str = new String(freq);
+            if(!map.containsKey(str)) {
+                map.put(str, new ArrayList<>());
+            }
+            map.get(str).add(strs[i]);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
+
+
+
+
+
+
+
+
+
+// String Compression ( Problem 2 )
+
+class Solution {
+    public int compress(char[] chars) {
+        int i = 0;
+        int index = 0;
+
+        while(i < chars.length) {
+            char curr = chars[i];
+            int count = 0;
+
+            while(i < chars.length && curr == chars[i]) {
+                count++;
+                i++;
+            }
+            chars[index] = curr;
+            index++;
+
+            if(count > 1) {
+            String str = Integer.toString(count);
+
+            for(int j = 0; j < str.length(); j++) {
+                char ch = str.charAt(j);
+                chars[index] = ch;
+                index++;
+            }
+
+            }
+        }
+        return index;
+    }
+}
+
+
+
+
+
+
+
+
+
+Longest Palindrome Substring ( Problem 3 )
+
+class Solution {
+    public String longestPalindrome(String s) {
+        if(s.length() <= 1) {
+            return s;
+        }
+        String LPS = "";
+
+        for(int i = 1; i < s.length(); i++) {
+            int start = i;
+            int end = i;
+
+            while(s.charAt(start) == s.charAt(end)) {
+                start--;
+                end++;
+
+                if(start == -1 || end == s.length()) {
+                    break;
+                }
+            }
+
+            String palindrome = s.substring(start + 1, end);
+            if(palindrome.length() > LPS.length()) {
+                LPS = palindrome;
+            }
+
+            start = i - 1;
+            end = i;
+
+            while(s.charAt(start) == s.charAt(end)) {
+                start--;
+                end++;
+
+                if(start == -1 || end == s.length()) {
+                    break;
+                }
+            }
+
+            palindrome = s.substring(start + 1, end);
+            if(palindrome.length() > LPS.length()) {
+                LPS = palindrome;
+            }
+            
+        }
+        return LPS;
+    }
+}
