@@ -1,0 +1,71 @@
+java
+1. Playable Interface (package: music)
+package music;
+
+public interface Playable {
+    void play();
+}
+
+
+
+ 2. Veena Class (package: music.string)
+package music.string;
+
+import music.Playable;
+
+public class Veena implements Playable {
+    public void play() {
+        System.out.println("Playing Veena");
+    }
+}
+
+
+
+ 3. Saxophone Class (package: music.wind)
+package music.wind;
+
+import music.Playable;
+
+public class Saxophone implements Playable {
+    public void play() {
+        System.out.println("Playing Saxophone");
+    }
+}
+
+
+
+ 4. Test Class (package: live)
+package live;
+
+import music.Playable;
+import music.string.Veena;
+import music.wind.Saxophone;
+
+public class Test {
+    public static void main(String[] args) {
+
+        // a. Instance of Veena
+        Veena v = new Veena();
+        v.play();
+
+        // b. Instance of Saxophone
+        Saxophone s = new Saxophone();
+        s.play();
+
+        // c. Using Playable reference
+        Playable p;
+
+        p = new Veena();
+        p.play();
+
+        p = new Saxophone();
+        p.play();
+    }
+}
+
+
+Output
+Playing Veena
+Playing Saxophone
+Playing Veena
+Playing Saxophone
